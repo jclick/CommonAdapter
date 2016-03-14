@@ -1,0 +1,2 @@
+# CommonAdapter
+android common adapter.  
