@@ -1,4 +1,4 @@
-package cn.jclick.demo;
+package cn.jclick.jadapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;

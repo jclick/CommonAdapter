@@ -9,6 +9,9 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.jclick.jadapter.CommonAdapter;
+import cn.jclick.jadapter.CommonDataItem;
+
 public class MainActivity extends AppCompatActivity {
 
     private ListView listView;

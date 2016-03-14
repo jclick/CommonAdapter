@@ -1,4 +1,4 @@
-package cn.jclick.demo;
+package cn.jclick.jadapter;
 
 import android.util.SparseArray;
 import android.view.View;
