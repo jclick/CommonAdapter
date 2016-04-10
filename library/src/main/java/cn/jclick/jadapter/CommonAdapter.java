@@ -109,38 +109,42 @@ public class CommonAdapter extends BaseAdapter{
             if (mViewHooker != null && mViewHooker.isHookSuccess(position, view, object)){
                 continue;
             }
-            if (object instanceof View.OnTouchListener) {
-                view.setOnTouchListener((View.OnTouchListener) object);
-                continue;
-            }
-            if (object instanceof View.OnClickListener) {
-                view.setOnClickListener((View.OnClickListener) object);
-                continue;
-            }
-            if (object instanceof View.OnLongClickListener) {
-                view.setOnLongClickListener((View.OnLongClickListener) object);
-                continue;
+            if (object != null){
+                if (object instanceof View.OnTouchListener) {
+                    view.setOnTouchListener((View.OnTouchListener) object);
+                    continue;
+                }
+                if (object instanceof View.OnClickListener) {
+                    view.setOnClickListener((View.OnClickListener) object);
+                    continue;
+                }
+                if (object instanceof View.OnLongClickListener) {
+                    view.setOnLongClickListener((View.OnLongClickListener) object);
+                    continue;
+                }
+                if (object instanceof Boolean) {
+                    if (view instanceof Checkable) {
+                        ((Checkable) view).setChecked((Boolean) object);
+                        continue;
+                    }
+                    Boolean isVisible = (Boolean) object;
+                    if (isVisible) {
+                        view.setVisibility(View.VISIBLE);
+                    } else {
+                        view.setVisibility(View.GONE);
+                    }
+                    continue;
+                }
             }
             if (view instanceof Checkable) {
-                if (object instanceof Boolean) {
-                    ((Checkable) view).setChecked((Boolean) object);
-                } else {
-                    throw new IllegalStateException(object.getClass().getName() +
-                            " should be bind to a Boolean, not a " + object.getClass());
-                }
-            }else if (object instanceof Boolean) {
-                Boolean isVisible = (Boolean) object;
-                if (isVisible) {
-                    view.setVisibility(View.VISIBLE);
-                } else {
-                    view.setVisibility(View.GONE);
-                }
-            } else if (view instanceof TextView && object instanceof CharSequence) {
-                ((TextView)view).setText((CharSequence) object);
+                throw new IllegalStateException(object.getClass().getName() +
+                        " should be bind to a Boolean, not a " + object.getClass());
+            }else if (view instanceof TextView) {
+                ((TextView)view).setText(object == null ? "" : object.toString());
             } else if (view instanceof ImageView) {
                 bindImageView((ImageView) view, object);
             } else {
-                throw new IllegalStateException(view.getClass().getName() + " can not bind with value(" + object + ") by " + CommonAdapter.this.getClass().getName());
+                throw new IllegalStateException(view.getClass().getName() + " can not bind with value(" + object + ") to " + view +" by " + CommonAdapter.this.getClass().getName());
             }
         }
     }
